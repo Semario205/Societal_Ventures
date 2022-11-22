@@ -1,0 +1,32 @@
+.center{
+      margin: auto;
+  padding: 10px;
+}
+.mid-box {
+
+    max-width: 300px;
+    height: fit-content;
+    min-width: 0;
+    border-radius: 10px;
+    background-color: transparent;
+    margin: auto;
+}
+.btn-dark{
+      border-radius: 0;
+      color: "#0F1240";
+      width: 100%;
+}
+input{
+      border: none;
+      border-bottom: 1px solid black;
+      outline: 0;
+      width: 100%;
+      margin-bottom: 10px;
+}
+input:focus{
+      border: none;
+      border-bottom: 1px solid#02969c;
+      outline: 0;
+      width: 100%;
+      margin-bottom: 10px;
+}

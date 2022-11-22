@@ -15,6 +15,13 @@ Session(app)
 @app.route('/', methods=['GET']) # Has the url "/" and specify that this is only for getting a page
 def example():
     return render_template("example.html")
+@app.route('/login', methods=['GET']) # Has the url "/" and specify that this is only for getting a page
+def login():
+    return render_template("login.html")
+@app.route('/signup', methods=['GET']) 
+def signup():
+    return render_template("signup.html")
+
 
 # # Routes that are used when the client (frontend) sends over data
 # @app.route('/api/login', methods=['POST']) # Has the url "/api/login" and specify that this is only for when user is posting/sending data
