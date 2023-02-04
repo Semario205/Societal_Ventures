@@ -1,0 +1,114 @@
+<!-- This is an example template for how a html file would look like to copy and paste -->
+{% extends 'base.html' %}
+
+{% block title %}Add Blogpost{% endblock %}
+
+{% block content %}
+<!-- REPLACE WITH ACTUAL NAVBAR LATER -->
+<br />
+<p>navbar</p>
+<hr></hr>
+<!--/-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/addblog.css')}}">
+<div>
+    <div>
+        <h1>Add a blogpost</h1>
+        <p>
+            How to format:<br />
+            >"text" makes a quote<br />
+            [link, text] makes a link<br />
+            yt[youtube.com link]yt makes a video<br />
+            h2[text]h2 makes a subheading<br />
+            h3[text]h3 makes a smaller subheading<br />
+            __text__ makes it underlined<br />
+            _text_ makes it italic<br />
+            ```text``` makes a big code block<br />
+            `text` makes an inline code block<br />
+            *text* makes it bold<br />
+        </p>
+        <input type="text" placeholder="Blogpost Title" oninput="btitle(this)" />
+        <input type="text" placeholder="Blogpost Author(s)" oninput="bauthors(this)" />
+        <textarea placeholder="The actual blog" oninput="format(this)"></textarea>
+        <button onclick="sendblog()">Publish Blog</button>
+    </div>
+    <div>
+        <h1>Blogpost Preview:</h1>
+        <div id="blogpreview">
+            <h1 id="titlepreview"></h1>
+            <h2><i id="authorpreview"></i></h2>
+            <div id="textpreview">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let ogblog, ogtitle, ogauthors, finalblog;
+    function format(e) {
+        let blog = e.value;
+        ogblog = blog;
+        // allows you to type html tags and have them show up
+        blog = blog.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        // makes >"text" become a quote
+        blog = blog.replaceAll("\\&gt;", "&gt;").replaceAll('\\"', "&#34;").replaceAll('&gt;"', "<blockquote>").replaceAll('"', "</blockquote>");
+        // makes [link, text] turn into a link, don't ask me how this works
+        blog = blog.replaceAll("\\[", "&#91").replaceAll("\\]", "&#93;").replace(/\[([^*]*?)\, /g, "<a href='$1' target='_blank'>").replace(/\'\>([^*]*?)\]/g, "'>$1</a>");
+        // makes yt[youtube.com link]yt become a video embed
+        blog = blog.replaceAll("yt[https://www.youtube.com/watch?v=", "</p><iframe width='853' height='480' src='https://www.youtube.com/embed/").replaceAll("]yt", "' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' allowfullscreen></iframe><p>");
+        // makes h2[text]h2 become a subheading
+        blog = blog.replaceAll("h2[", "<h2>").replaceAll("]h2", "</h2>");
+        // makes h3[text]h3 become a subsubheading
+        blog = blog.replaceAll("h3[", "<h3>").replaceAll("]h3", "</h3>");
+        // makes __text__ become underlined
+        blog = blog.replaceAll("\\_", "&#95;&#95;").replace(/\_\_([^_]*?)\_\_/g, "<u>$1<\/u>");
+        // makes _text_ become italic
+        blog = blog.replace(/\_([^_]*?)\_/g, "<i>$1<\/i>");
+        // makes ```text``` become a code block
+        blog = blog.replaceAll("\\`", "&#96;").replace(/\`\`\`([^`]*?)\`\`\`/g, "<pre>$1<\/pre>");
+        // makes `text` become an inline code block
+        blog = blog.replace(/\`([^`]*?)\`/g, "<code>$1<\/code>");
+        // makes *text* become bold
+        blog = blog.replaceAll("\\*", "&#42;").replace(/\*([^*]*?)\*/g, "<b>$1<\/b>");
+        blog = "<p>" + blog + "</p>";
+        document.getElementById("textpreview").innerHTML = blog;
+    }
+    function btitle(e) {
+        document.getElementById("titlepreview").innerHTML = e.value;
+        ogtitle = e.value;
+    }
+    function bauthors(e) {
+        document.getElementById("authorpreview").innerHTML = e.value;
+        ogauthors = e.value;
+    }
+    function sendblog() {
+        console.log("e");
+        // send ogblog, ogtitle, ogauthors, and finalblog to the python stuff
+    }
+</script>
+{% endblock %}
+
+<!--
+Set-ExecutionPolicy Unrestricted -Scope Process
+python -m venv venv
+venv/Scripts/activate
+python app.py
+-->
+
+
+<!--
+checklist:
+    //bold
+    //italic
+    //inline code
+    //pre
+    //quote
+    //title
+    //author
+    //headings
+    //underline
+    //links
+    //videos
+    images
+-->
