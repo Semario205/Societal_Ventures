@@ -21,6 +21,9 @@ def login():
 @app.route('/signup', methods=['GET']) 
 def signup():
     return render_template("signup.html")
+@app.route('/addblog', methods=['GET']) 
+def blog():
+    return render_template("addblog.html")
 
 
 # # Routes that are used when the client (frontend) sends over data

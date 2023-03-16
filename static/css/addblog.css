@@ -1,0 +1,24 @@
+*, html, body, ::after{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+body{
+  background-color: #BEF3F1;
+}
+#blogpreview{
+  border-top: solid black 7px;
+  width: 100vw;
+  min-height: 10px;
+  overflow-wrap: break-word;
+  padding: 10px;
+  white-space: pre-line;
+}
+textarea{
+  min-width: 500px;
+  max-width: 750px;
+  min-height: 75px;
+  resize: none;
+  display: block;
+}
